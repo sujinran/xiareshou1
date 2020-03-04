@@ -1,0 +1,67 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<style>
+.head{text-align:center;}
+.row{padding:5px;}
+.row input{line-height:20px;border:1px solid #2f96ef;}
+.btn{cursor:pointer;}
+.box{float:left;display:none1;}
+</style>
+</head>
+<body>
+<div class="head">15秒刷新一下页面
+<div class="row">1. <input type="text" id="url1" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="1" data-stat="0">开始~</button></div>
+<div class="row">2. <input type="text" id="url2" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="2" data-stat="0">开始~</button></div>
+<div class="row">3. <input type="text" id="url3" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="3" data-stat="0">开始~</button></div>
+<div class="row">4. <input type="text" id="url4" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="4" data-stat="0">开始~</button></div>
+<div class="row">5. <input type="text" id="url5" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="5" data-stat="0">开始~</button></div>
+<div class="row">6. <input type="text" id="url6" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="6" data-stat="0">开始~</button></div>
+<div class="row">7. <input type="text" id="url7" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="7" data-stat="0">开始~</button></div>
+<div class="row">8. <input type="text" id="url8" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="8" data-stat="0">开始~</button></div>
+<div class="row">9. <input type="text" id="url9" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="9" data-stat="0">开始~</button></div>
+<div class="row">10. <input type="text" id="url10" size="50" value="粘贴网址"> <button type="button" class="btn" data-no="10" data-stat="0">开始~</button></div>
+</div>
+<div class="wins">
+<div class="box" id="box1"></div>
+<div class="box" id="box2"></div>
+<div class="box" id="box3"></div>
+<div class="box" id="box4"></div>
+<div class="box" id="box5"></div>
+<div class="box" id="box6"></div>
+<div class="box" id="box7"></div>
+<div class="box" id="box8"></div>
+<div class="box" id="box9"></div>
+<div class="box" id="box10"></div>
+</div>
+<script>
+$(function(){
+	var timer={};
+	$(".btn").on("click",function(){
+		var no=$(this).data("no"),stat=$(this).data("stat");
+		console.log(stat);
+		if(stat==1){
+			$("#box"+no).html('');
+			$(this).data('stat',0).text('开始~');
+			clearInterval(timer['t'+no]);
+		}else{
+			if($("#url"+no).val()==""){alert("请输入网址");return false;}
+			$("#box"+no).html('<iframe id="frame'+no+'" src="'+$("#url"+no).val()+'" />');
+			$(this).data('stat',1).text('进行中,点击停止');
+			timer['t'+no]=setInterval(function(){
+				$("#box"+no).html('');
+				$("#box"+no).html('<iframe id="frame'+no+'" src="'+$("#url"+no).val()+'" />');
+				document.getElementById('frame'+no).contentWindow.location.reload();
+			},15000);
+		}
+	});
+})
+</script>
+</body>
+</html>
